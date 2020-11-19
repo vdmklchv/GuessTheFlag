@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Score", style: .plain, target: self, action: #selector(showScore))
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         button1.layer.borderWidth = 1
         button2.layer.borderWidth = 1
@@ -38,7 +39,7 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         correctAnswer = Int.random(in: 0...2)
-        title = "Question \(askedQuestions): \(countries[correctAnswer].uppercased()) - Current Score: \(score)"
+        title = "Question \(askedQuestions): \(countries[correctAnswer].uppercased())"
         askedQuestions += 1
     }
     
@@ -47,6 +48,12 @@ class ViewController: UIViewController {
         correctAnswer = 0
         score = 0
         askQuestion()
+    }
+    
+    @objc func showScore() {
+        let alert = UIAlertController(title: "Current score", message: "Your current score is \(score)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 
     @IBAction func buttonTapped(_ sender: UIButton) {
